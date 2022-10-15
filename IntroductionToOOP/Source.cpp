@@ -15,7 +15,7 @@ public:
 	}
 	void getVeriablePoint()
 	{
-		cout << x << "\t" << y << endl;
+		cout << x << "\n" << y << endl;
 	}
 };
 void main()
