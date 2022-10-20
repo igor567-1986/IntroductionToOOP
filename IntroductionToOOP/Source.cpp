@@ -106,7 +106,7 @@ void main()
 	Point B = 5; // Single-Argument constructor
 	B.print();
 
-	Point C(4.4, 5.2);
+	Point C(4.4, 5.2); // double-argument constructor
 	C.print();
 	cout<<"Расстояние до указаной точки " << "=" << A.distance(C) << endl;
 	cout << distance(B, C)<< endl;
