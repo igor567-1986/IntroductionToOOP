@@ -1,8 +1,13 @@
 ﻿#include<iostream>
 using namespace std;
+using std::cin;
+using std::cout;
+using std::endl;
 
 #define tab "\t"
 //#define STRUCT_POINT
+
+
 
 class Point
 {
@@ -47,13 +52,21 @@ public:
 	{
 		cout << "Destructor: \t" << this << endl;
 	}
-
+	
 	//          Methods :
 	void print()const
 	{
 		cout << " X = "  << x << " \tY = " << y << endl;
 	}
+	double distance(Point A)
+	{
+		double dist=((x - A.x) * (x - A.x) + (y - A.y) * (y - A.y));
+		return dist;
+	}
 };
+
+double distance(Point A, Point B);
+
 void main()
 {
 	setlocale(LC_ALL, "");
@@ -71,12 +84,10 @@ void main()
 
 	Point* pA = &A;
 	cout << pA->x << "\t" << pA->y << endl;*/
-    A.setVeriablePoint(x1, y1);
-	A.getVeriablePoint();
+    
 
 	Point A;
-	A.set_x(2);
-	A.set_y(3);
+	
 	//cout << A.get_x() << "\t" << A.get_y() << endl;
 	A.print();
 
@@ -86,13 +97,21 @@ void main()
 	//cout << B.get_x() << "\t" << B.get_y() << endl;
 	B.print();
 #endif // DEBUG
-
-	Point A; // Default constructor
+	
+    Point A; // Default constructor
+   // A.set_x(2);
+	//A.set_y(3);
 	A.print();
 	 
 	Point B = 5; // Single-Argument constructor
 	B.print();
 
-	Point C(2, 3);
+	Point C(4.4, 5.2);
 	C.print();
+	cout<<"Расстояние до указаной точки " << "=" << A.distance(C) << endl;
+	cout << distance(B, C)<< endl;
+}
+double distance(Point A, Point B)
+{
+	return A.distance (B);
 }
