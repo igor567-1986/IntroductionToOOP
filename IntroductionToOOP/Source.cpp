@@ -1,4 +1,5 @@
 ﻿#include<iostream>
+//#include<math.h>
 using namespace std;
 using std::cin;
 using std::cout;
@@ -60,7 +61,13 @@ public:
 	}
 	double distance(Point A)
 	{
-		return sqrt((x - A.x) * (x - A.x) + (y - A.y) * (y - A.y));
+		/*double a = 0.00001;
+		double root = 0;
+		double n= ((x - A.x) * (x - A.x) + (y - A.y) * (y - A.y));
+		while (root * root < n)root += a;
+		return root;*/
+		//return sqrt((x - A.x) * (x - A.x) + (y - A.y) * (y - A.y));
+		return sqrt(pow(x - A.x, 2) + pow(y - A.y, 2));
 	}
 };
 
