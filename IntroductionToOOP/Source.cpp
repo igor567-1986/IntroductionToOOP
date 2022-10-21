@@ -60,8 +60,7 @@ public:
 	}
 	double distance(Point A)
 	{
-		double dist=((x - A.x) * (x - A.x) + (y - A.y) * (y - A.y));
-		return dist;
+		return sqrt((x - A.x) * (x - A.x) + (y - A.y) * (y - A.y));
 	}
 };
 
@@ -90,6 +89,8 @@ void main()
 	
 	//cout << A.get_x() << "\t" << A.get_y() << endl;
 	A.print();
+    A.set_x(2);
+	A.set_y(3);
 
 	Point B;
 	B.set_x(5);
@@ -99,11 +100,9 @@ void main()
 #endif // DEBUG
 	
     Point A; // Default constructor
-   // A.set_x(2);
-	//A.set_y(3);
-	A.print();
-	 
-	Point B = 5; // Single-Argument constructor
+    A.print();
+		 
+	Point B = 5.3; // Single-Argument constructor
 	B.print();
 
 	Point C(4.4, 5.2); // double-argument constructor
