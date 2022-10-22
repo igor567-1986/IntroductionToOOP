@@ -8,8 +8,10 @@ using std::endl;
 #define tab "\t"
 #define delimetr "\n-------------------------------------------\n"
 //#define STRUCT_POINT
-#define CONSTRUCTORS_CHEK
-#define DISTANCE_CHECK
+//#define CONSTRUCTORS_CHEK
+//#define DISTANCE_CHECK
+//#define ARITHMETICAL_OPERATORS_CHECK
+//#define COMPARISON_OPERATORS
 
 
 class Point
@@ -61,8 +63,35 @@ public:
 	{
 		cout << "Destructor: \t" << this << endl;
 	}
+	             //Operators
+	Point& operator=(const Point& other)
+	{
+		this->x = other.x;
+		this->y = other.y;
+		cout << "CopyAssignment: \t" << this << endl;
+		return *this;
+	}
+	Point& operator++()//Prefix
+	{
+		x++;
+		y++;
+		return *this;
+	}
+	Point operator++(int/*здесь возможен только инт*/)//Postfiks
+	{
+		Point old = *this;
+		x++;
+		y++;
+		return old;
+	}
+	Point& operator()(double x, double y)
+	{
+		set_x(x);
+		set_y(y);
+		return *this;
+	}
+	//          Methods
 	
-	//          Methods :
 	void print()const
 	{
 		cout << " X = "  << x << " \tY = " << y << endl;
@@ -80,6 +109,34 @@ public:
 };
 
 double distance(const Point &A,const Point& B);
+
+
+Point operator+(const Point& left, const Point& right)
+{
+	Point res;
+	res.set_x(left.get_x() + right.get_x());
+	res.set_y(left.get_y() + right.get_y());
+	return res;
+	
+}
+bool operator==(const Point& left, const Point& right)
+{
+	return left.get_x() == right.get_x() && left.get_y() == right.get_y();
+	
+}
+bool operator!=(const Point& left, const Point& right)
+{
+	return!(left == right);
+}
+bool operator < (const Point& left, const Point& right)
+{
+	return left.get_x() < right.get_x() && left.get_y() < right.get_y();
+}
+bool operator <= (const Point& left, const Point& right)
+{
+	return left.get_x() <= right.get_x() && left.get_y() <= right.get_y();
+}
+
 
 void main()
 {
@@ -125,7 +182,6 @@ void main()
 	C.print();
 #endif // CONSTRUCTORS_CHEK
 
-
 #ifdef DISTANCE_CHECK
 	cout << delimetr << endl;
 	cout << "Расстояние от точки А до точки С " << "=" << A.distance(C) << endl;
@@ -134,11 +190,33 @@ void main()
 	cout << delimetr << endl;
 	cout << distance(B, C) << endl;
 	cout << delimetr << endl;
-#endif // DISTANCE_CHECK
-
-
 	Point D = C;
 	D.print();
+#endif // DISTANCE_CHECK
+
+#ifdef ARITHMETICAL_OPERATORS_CHECK
+	Point A(2, 3);
+	Point B(7, 8);
+	Point C = A + B;
+	A.print();
+	B.print();
+	C.print();
+	Point D = C++;
+	C.print();
+	D.print();
+#endif // ARITHMETICAL_OPERATORS_CHECK
+
+#ifdef COMPARISON_OPERATORS
+	cout << (Point(2, 3) != Point(3, 3)) << endl;
+	for (Point i = 0; i < Point(10, 10); ++i)i.print();
+#endif // COMPARISON_OPERATORS
+ 
+	Point A;
+	A.print();
+	A.set_y(2);
+	A.set_y(3);
+	A.print();
+	A.(2, 3);
 }
 double distance(const Point& A,const Point &B)
 {
