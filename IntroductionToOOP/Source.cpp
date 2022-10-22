@@ -6,8 +6,10 @@ using std::cout;
 using std::endl;
 
 #define tab "\t"
+#define delimetr "\n-------------------------------------------\n"
 //#define STRUCT_POINT
-
+#define CONSTRUCTORS_CHEK
+#define DISTANCE_CHECK
 
 
 class Point
@@ -32,22 +34,28 @@ public:
 		this->y = y;
 	}
 	//        Constructors:
-	Point()
+	/*Point()
 	{
 		x = y = double();
 		cout << "Constructor: \t" << this << endl;
-	}
-	Point(double x)
+	}*/
+	/*Point(double x)
 	{
 		this->x = x;
 		this->y = 0;
 		cout << "1ArgConstructor:" << this << endl;
-	}
-	Point(double x, double y)
+	}*/
+	Point(double x=0, double y=0)
 	{
 		this->x = x;
 		this->y = y;
 		cout << "Constructor:\t" << this << endl;
+	}
+	Point(const Point& other)
+	{
+		this->x = other.x;
+		this->y = other.y;
+		cout << "CopyConstructor: " << this << endl;
 	}
 	~Point()
 	{
@@ -59,7 +67,7 @@ public:
 	{
 		cout << " X = "  << x << " \tY = " << y << endl;
 	}
-	double distance(Point A)
+	double distance(const Point& A)const
 	{
 		/*double a = 0.00001;
 		double root = 0;
@@ -71,7 +79,7 @@ public:
 	}
 };
 
-double distance(Point A, Point B);
+double distance(const Point &A,const Point& B);
 
 void main()
 {
@@ -106,18 +114,33 @@ void main()
 	B.print();
 #endif // DEBUG
 	
-    Point A; // Default constructor
-    A.print();
-		 
+#ifdef CONSTRUCTORS_CHEK
+	Point A; // Default constructor
+	A.print();
+
 	Point B = 5.3; // Single-Argument constructor
 	B.print();
 
-	Point C(4.4, 5.2); // double-argument constructor
+	Point C(4.4, 5.2); //  constructor
 	C.print();
-	cout<<"Расстояние до указаной точки " << "=" << A.distance(C) << endl;
-	cout << distance(B, C)<< endl;
+#endif // CONSTRUCTORS_CHEK
+
+
+#ifdef DISTANCE_CHECK
+	cout << delimetr << endl;
+	cout << "Расстояние от точки А до точки С " << "=" << A.distance(C) << endl;
+	cout << delimetr << endl;
+	cout << "Расстояние от точки С до точки А " << "=" << C.distance(A) << endl;
+	cout << delimetr << endl;
+	cout << distance(B, C) << endl;
+	cout << delimetr << endl;
+#endif // DISTANCE_CHECK
+
+
+	Point D = C;
+	D.print();
 }
-double distance(Point A, Point B)
+double distance(const Point& A,const Point &B)
 {
 	return A.distance (B);
 }
