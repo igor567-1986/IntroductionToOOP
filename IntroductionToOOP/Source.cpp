@@ -12,6 +12,8 @@ using std::endl;
 //#define DISTANCE_CHECK
 //#define ARITHMETICAL_OPERATORS_CHECK
 //#define COMPARISON_OPERATORS
+//#define OSTREAM_CLASS
+//#define ASSIGNMENT_OPERATOR_CHECK
 
 
 class Point
@@ -122,7 +124,6 @@ Point operator+(const Point& left, const Point& right)
 bool operator==(const Point& left, const Point& right)
 {
 	return left.get_x() == right.get_x() && left.get_y() == right.get_y();
-	
 }
 bool operator!=(const Point& left, const Point& right)
 {
@@ -136,7 +137,12 @@ bool operator <= (const Point& left, const Point& right)
 {
 	return left.get_x() <= right.get_x() && left.get_y() <= right.get_y();
 }
-
+ostream& operator<< (ostream& os, const Point& obj)
+{
+	os << "X = " << obj.get_x();
+	os << "\tY = " << obj.get_y();
+	return os;
+}
 
 void main()
 {
@@ -175,11 +181,17 @@ void main()
 	Point A; // Default constructor
 	A.print();
 
-	Point B = 5.3; // Single-Argument constructor
+	Point B = 5; // Single-Argument constructor
 	B.print();
 
-	Point C(4.4, 5.2); //  constructor
+	Point C(2,3); //  constructor
 	C.print();
+    Point D = C;
+	D.print();
+	Point  E;   // Default constructor
+	E = D;  // Assignment operator (CopyAssignment)
+	E.print();
+
 #endif // CONSTRUCTORS_CHEK
 
 #ifdef DISTANCE_CHECK
@@ -190,9 +202,17 @@ void main()
 	cout << delimetr << endl;
 	cout << distance(B, C) << endl;
 	cout << delimetr << endl;
-	Point D = C;
-	D.print();
+	
 #endif // DISTANCE_CHECK
+	 
+#ifdef ASSIGNMENT_OPERATOR_CHECK
+	int a, b, c = 0;
+	Point A, B, C;
+	cout << delimetr << endl;
+	A = B = C = Point(2, 3);
+	cout << delimetr << endl;
+#endif // ASSIGNMENT_OPERATOR_CHECK
+
 
 #ifdef ARITHMETICAL_OPERATORS_CHECK
 	Point A(2, 3);
@@ -208,15 +228,20 @@ void main()
 
 #ifdef COMPARISON_OPERATORS
 	cout << (Point(2, 3) != Point(3, 3)) << endl;
-	for (Point i = 0; i < Point(10, 10); ++i)i.print();
+	for (Point i = 0; i < Point(10, 10); ++i)
+		i.print();
 #endif // COMPARISON_OPERATORS
  
+#ifdef OSTREAM_CLASS
 	Point A;
 	A.print();
-	A.set_y(2);
-	A.set_y(3);
+	/*A.set_y(2);
+	A.set_y(3);*/
+	A(2, 3);
 	A.print();
-	A.(2, 3);
+	cout << A << endl;
+#endif // 
+
 }
 double distance(const Point& A,const Point &B)
 {
