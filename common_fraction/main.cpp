@@ -80,6 +80,7 @@ public:
 		integer++;
 		return old;
 	} 
+	
 
 	               // Metodg:
 	fraction& to_improper()
@@ -104,8 +105,19 @@ public:
 		swap(inverted.numerator, inverted.denominator);
 		return inverted;
 	}
+	fraction& reduce()
+	{
+		for (int i = 10; i > 1; i--)
+			if (this->numerator % i == 0 && this->denominator % i == 0)
+			{
+				this->numerator = this->numerator / i;
+				this->denominator = this->denominator / i;
+				i++;
+			}
+		return *this;
+	}
 };
-ostream& operator<< (ostream& os, const fraction& obj)
+ostream& operator<<(ostream& os, const fraction& obj)
 {
 	if (obj.get_integer())os << obj.get_integer();
 	if (obj.get_numerator())
@@ -117,7 +129,7 @@ ostream& operator<< (ostream& os, const fraction& obj)
 	else if (obj.get_integer() == 0)os << 0;
 	return os;
 }
-fraction operator *( fraction& left, fraction& right)
+fraction operator*( fraction left, fraction right)
 {
 	left.to_improper();
 	right.to_improper();
@@ -134,20 +146,20 @@ fraction operator *( fraction& left, fraction& right)
 	(
 		left.get_numerator() * right.get_numerator(),
 		left.get_denominator() * right.get_denominator()
-	).to_proper();
+	).to_proper().reduce();
 }
-fraction operator/( fraction left,  fraction right)
+fraction operator/(const fraction left,const  fraction right)
 {
-	left.to_improper();
+	/*left.to_improper();
 	right.to_improper();
 	return fraction
 	(
 		left.get_numerator() * right.get_denominator(),
 		right.get_numerator() * left.get_denominator()
-	).to_proper();
-	//return left * right.inverted();
+	).to_proper();*/
+	return (left * right.inverted()).reduce();
 }
-fraction operator+(fraction& left, fraction& right)
+fraction operator+(fraction left, fraction right)
 {
 	left.to_improper();
 	right.to_improper();
@@ -155,7 +167,57 @@ fraction operator+(fraction& left, fraction& right)
 	(
 		left.get_numerator() * right.get_denominator() + right.get_numerator() * left.get_denominator(),
 		left.get_denominator() * right.get_denominator()
-	).to_proper();
+	).to_proper().reduce();
+}
+
+fraction operator-(fraction& left, fraction& right)
+{
+	left.to_improper();
+	right.to_improper();
+	return fraction
+	(
+		left.get_numerator() * right.get_denominator() - right.get_numerator() * left.get_denominator(),
+		left.get_denominator() * right.get_denominator()
+	).to_proper().reduce();
+	
+}
+fraction operator+=(fraction left, fraction right) {	return left + right;}
+fraction operator-=(fraction left, fraction right) {	return left - right;}
+fraction operator*=(fraction left, fraction right) {	return left * right;}
+fraction operator/=(fraction left, fraction right) {	return left / right;}
+bool operator==(const fraction& left, const fraction& right)
+{
+	return left.get_integer() == right.get_integer()
+		&& left.get_numerator() == right.get_numerator()
+		&& left.get_denominator() == right.get_denominator();
+}
+bool operator!=(const fraction& left, const fraction& right)
+{
+	return!(left == right);
+}
+bool operator<(const fraction& left, const fraction& right)
+{
+	return left.get_integer() < right.get_integer()
+		&& left.get_numerator() < right.get_numerator()
+		&& left.get_denominator() < right.get_denominator();
+}
+bool operator<=(const fraction& left, const fraction& right)
+{
+	return left.get_integer() <= right.get_integer()
+		&& left.get_numerator() <= right.get_numerator()
+		&& left.get_denominator() <= right.get_denominator();
+}
+bool operator>(const fraction& left, const fraction& right)
+{
+	return left.get_integer() > right.get_integer()
+		&& left.get_numerator() > right.get_numerator()
+		&& left.get_denominator() > right.get_denominator();
+}
+bool operator>=(const fraction& left, const fraction& right)
+{
+	return left.get_integer() >= right.get_integer()
+		&& left.get_numerator() >= right.get_numerator()
+		&& left.get_denominator() >= right.get_denominator();
 }
 
 
@@ -184,8 +246,17 @@ void main()
 	cout << C << endl;
 	cout << A / B << endl;
 	cout << A + B << endl;
+	cout << A - B << endl;
 	for (double i = 0.25; i < 10; i++)cout << i << tab;
 	cout << endl;
 	for (fraction i(3, 4); i.get_integer() < 10; ++i)cout << i << tab;
+	cout << endl;
+	cout << (A += B) << endl;
+	cout << endl;
+	cout << (A -= B) << endl;
+	cout << endl;
+	cout << (A *= B) << endl;
+	cout << endl;
+	cout << (A /= B) << endl;
 	cout << endl;
 }
