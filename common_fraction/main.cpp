@@ -195,8 +195,7 @@ fraction operator/=(fraction left, fraction right) {	return left / right;}
 bool operator==(const fraction& left, const fraction& right)
 {
 	return left.get_integer() == right.get_integer()
-		&& left.get_numerator() == right.get_numerator()
-		&& left.get_denominator() == right.get_denominator();
+		&& left.get_numerator() * right.get_denominator()==right.get_numerator() * left.get_denominator();
 }
 bool operator!=(const fraction& left, const fraction& right)
 {
@@ -208,7 +207,7 @@ bool operator<(const fraction left, const fraction right)
 		return (left.get_numerator() * right.get_denominator()) < (right.get_numerator() * left.get_denominator());
 	else return left.get_integer() < right.get_integer();
 }
-bool operator<=(fraction left,  fraction right)
+bool operator<=(const fraction left,const  fraction right)
 {
 	if (left.get_integer() == right.get_integer())
 		return (left.get_numerator() * right.get_denominator()) <= (right.get_numerator() * left.get_denominator());
@@ -216,15 +215,11 @@ bool operator<=(fraction left,  fraction right)
 }
 bool operator>(const fraction& left, const fraction& right)
 {
-	if (left.get_integer() == right.get_integer())
-		return (left.get_numerator() * right.get_denominator()) > (right.get_numerator() * left.get_denominator());
-	else return left.get_integer() > right.get_integer();
+	return!(left < right);
 }
 bool operator>=(const fraction& left, const fraction& right)
 {
-	if (left.get_integer() == right.get_integer())
-		return (left.get_numerator() * right.get_denominator()) <= (right.get_numerator() * left.get_denominator());
-	else return left.get_integer() >= right.get_integer();
+	return!(left <= right);
 }
 
 
@@ -269,9 +264,9 @@ void main()
 	cout << endl;
 #endif // HOME_WOR
 	fraction A(3,4);
-	fraction B(2, 4); 
-	cout <<  (A < B )<< endl;
-for (fraction i(3, 4); i < 10;++ i)
-		cout << i << "\t";
-	cout << endl;
+	fraction B(1,2, 4); 
+	cout <<  (A > B )<< endl;
+//for (fraction i(3, 4); i < 10;++ i)
+//		cout << i << "\t";
+//	cout << endl;
 }
