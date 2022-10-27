@@ -80,9 +80,14 @@ public:
 		integer++;
 		return old;
 	} 
-	
-
-	               // Metodg:
+	fraction& operator()(int integer,int numerator,int denominator)
+	{
+		set_integer(integer);
+		set_numerator(numerator);
+		set_denominator(denominator);
+		return *this;
+	}
+		               // Metodg:
 	fraction& to_improper()
 	{
 		numerator += integer * denominator;
@@ -129,6 +134,7 @@ ostream& operator<<(ostream& os, const fraction& obj)
 	else if (obj.get_integer() == 0)os << 0;
 	return os;
 }
+
 fraction operator*( fraction left, fraction right)
 {
 	left.to_improper();
@@ -169,7 +175,6 @@ fraction operator+(fraction left, fraction right)
 		left.get_denominator() * right.get_denominator()
 	).to_proper().reduce();
 }
-
 fraction operator-(fraction& left, fraction& right)
 {
 	left.to_improper();
@@ -181,10 +186,12 @@ fraction operator-(fraction& left, fraction& right)
 	).to_proper().reduce();
 	
 }
+
 fraction operator+=(fraction left, fraction right) {	return left + right;}
 fraction operator-=(fraction left, fraction right) {	return left - right;}
 fraction operator*=(fraction left, fraction right) {	return left * right;}
 fraction operator/=(fraction left, fraction right) {	return left / right;}
+
 bool operator==(const fraction& left, const fraction& right)
 {
 	return left.get_integer() == right.get_integer()
@@ -195,33 +202,34 @@ bool operator!=(const fraction& left, const fraction& right)
 {
 	return!(left == right);
 }
-bool operator<(const fraction& left, const fraction& right)
+bool operator<(const fraction left, const fraction right)
 {
-	return left.get_integer() < right.get_integer()
-		&& left.get_numerator() < right.get_numerator()
-		&& left.get_denominator() < right.get_denominator();
+	if (left.get_integer() == right.get_integer())
+		return (left.get_numerator() * right.get_denominator()) < (right.get_numerator() * left.get_denominator());
+	else return left.get_integer() < right.get_integer();
 }
-bool operator<=(const fraction& left, const fraction& right)
+bool operator<=(fraction left,  fraction right)
 {
-	return left.get_integer() <= right.get_integer()
-		&& left.get_numerator() <= right.get_numerator()
-		&& left.get_denominator() <= right.get_denominator();
+	if (left.get_integer() == right.get_integer())
+		return (left.get_numerator() * right.get_denominator()) <= (right.get_numerator() * left.get_denominator());
+	else return left.get_integer() <= right.get_integer();
 }
 bool operator>(const fraction& left, const fraction& right)
 {
-	return left.get_integer() > right.get_integer()
-		&& left.get_numerator() > right.get_numerator()
-		&& left.get_denominator() > right.get_denominator();
+	if (left.get_integer() == right.get_integer())
+		return (left.get_numerator() * right.get_denominator()) > (right.get_numerator() * left.get_denominator());
+	else return left.get_integer() > right.get_integer();
 }
 bool operator>=(const fraction& left, const fraction& right)
 {
-	return left.get_integer() >= right.get_integer()
-		&& left.get_numerator() >= right.get_numerator()
-		&& left.get_denominator() >= right.get_denominator();
+	if (left.get_integer() == right.get_integer())
+		return (left.get_numerator() * right.get_denominator()) <= (right.get_numerator() * left.get_denominator());
+	else return left.get_integer() >= right.get_integer();
 }
 
 
 //#define CONSTRACTORS_CHEK
+//#define HOME_WOR
 
 void main()
 {
@@ -240,6 +248,7 @@ void main()
 	cout << D << endl;
 #endif // CONSTRACTORS_CHEK
  
+#ifdef HOME_WOR
 	fraction A(1, 2, 3);
 	fraction B(3, 4, 5);
 	fraction C = A * B;
@@ -249,8 +258,7 @@ void main()
 	cout << A - B << endl;
 	for (double i = 0.25; i < 10; i++)cout << i << tab;
 	cout << endl;
-	for (fraction i(3, 4); i.get_integer() < 10; ++i)cout << i << tab;
-	cout << endl;
+	
 	cout << (A += B) << endl;
 	cout << endl;
 	cout << (A -= B) << endl;
@@ -258,5 +266,12 @@ void main()
 	cout << (A *= B) << endl;
 	cout << endl;
 	cout << (A /= B) << endl;
+	cout << endl;
+#endif // HOME_WOR
+	fraction A(3,4);
+	fraction B(2, 4); 
+	cout <<  (A < B )<< endl;
+for (fraction i(3, 4); i < 10;++ i)
+		cout << i << "\t";
 	cout << endl;
 }
