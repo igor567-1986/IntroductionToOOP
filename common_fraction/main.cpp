@@ -187,20 +187,17 @@ fraction operator-(fraction& left, fraction& right)
 	
 }
 
-fraction operator+=(fraction left, fraction right) {	return left + right;}
-fraction operator-=(fraction left, fraction right) {	return left - right;}
-fraction operator*=(fraction left, fraction right) {	return left * right;}
-fraction operator/=(fraction left, fraction right) {	return left / right;}
+fraction operator+=(fraction left, fraction right) {return left + right;}
+fraction operator-=(fraction left, fraction right) {return left - right;}
+fraction operator*=(fraction left, fraction right) {return left * right;}
+fraction operator/=(fraction left, fraction right) {return left / right;}
 
 bool operator==(const fraction& left, const fraction& right)
 {
 	return left.get_integer() == right.get_integer()
 		&& left.get_numerator() * right.get_denominator()==right.get_numerator() * left.get_denominator();
 }
-bool operator!=(const fraction& left, const fraction& right)
-{
-	return!(left == right);
-}
+bool operator!=(const fraction& left, const fraction& right){	return!(left == right);}
 bool operator<(const fraction left, const fraction right)
 {
 	if (left.get_integer() == right.get_integer())
@@ -213,14 +210,8 @@ bool operator<=(const fraction left,const  fraction right)
 		return (left.get_numerator() * right.get_denominator()) <= (right.get_numerator() * left.get_denominator());
 	else return left.get_integer() <= right.get_integer();
 }
-bool operator>(const fraction& left, const fraction& right)
-{
-	return!(left < right);
-}
-bool operator>=(const fraction& left, const fraction& right)
-{
-	return!(left <= right);
-}
+bool operator>(const fraction& left, const fraction& right){	return!(left < right);}
+bool operator>=(const fraction& left, const fraction& right){	return!(left <= right);}
 
 
 //#define CONSTRACTORS_CHEK
