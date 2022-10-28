@@ -6,6 +6,11 @@ using std::endl;
 
 #define tab "\t"
 #define delimetr "\n----------------------------------\n"
+class fraction;//Обьявление класса
+fraction operator*(fraction left, fraction right);
+fraction operator/(const fraction left, const  fraction right);
+fraction operator+(fraction left, fraction right);
+fraction operator-(fraction left, fraction right);
 
 class fraction
 {
@@ -31,7 +36,7 @@ public:
 		this->denominator = 1;
 		cout << "DefConstructor:\t" << this << endl;
 	}
-	fraction(int integer)
+	 explicit fraction(int integer)
 	{
 		set_integer(integer);
 		this->numerator = 0;
@@ -87,6 +92,10 @@ public:
 		set_denominator(denominator);
 		return *this;
 	}
+	fraction& operator*=(const fraction& other) {return *this=*this*other;}
+	fraction& operator/=(const fraction& other) {return *this=*this/other;}
+	fraction& operator+=(const fraction& other) {return *this=*this+other;}
+	fraction& operator-=(const fraction& other) {return *this=*this-other;}
 		               // Metodg:
 	fraction& to_improper()
 	{
@@ -163,7 +172,7 @@ fraction operator/(const fraction left,const  fraction right)
 		left.get_numerator() * right.get_denominator(),
 		right.get_numerator() * left.get_denominator()
 	).to_proper();*/
-	return (left * right.inverted()).reduce();
+	return (left * right.inverted()).to_proper().reduce();
 }
 fraction operator+(fraction left, fraction right)
 {
@@ -175,7 +184,7 @@ fraction operator+(fraction left, fraction right)
 		left.get_denominator() * right.get_denominator()
 	).to_proper().reduce();
 }
-fraction operator-(fraction& left, fraction& right)
+fraction operator-(fraction left, fraction right)
 {
 	left.to_improper();
 	right.to_improper();
@@ -187,35 +196,33 @@ fraction operator-(fraction& left, fraction& right)
 	
 }
 
-fraction operator+=(fraction left, fraction right) {return left + right;}
-fraction operator-=(fraction left, fraction right) {return left - right;}
-fraction operator*=(fraction left, fraction right) {return left * right;}
-fraction operator/=(fraction left, fraction right) {return left / right;}
 
-bool operator==(const fraction& left, const fraction& right)
+
+bool operator==( fraction left,  fraction right)
 {
-	return left.get_integer() == right.get_integer()
-		&& left.get_numerator() * right.get_denominator()==right.get_numerator() * left.get_denominator();
+	left.to_improper();
+	right.to_improper();
+	return 	 left.get_numerator() * right.get_denominator()==
+		right.get_numerator() * left.get_denominator();
 }
 bool operator!=(const fraction& left, const fraction& right){	return!(left == right);}
-bool operator<(const fraction left, const fraction right)
+bool operator<( fraction left,  fraction right)
 {
-	if (left.get_integer() == right.get_integer())
-		return (left.get_numerator() * right.get_denominator()) < (right.get_numerator() * left.get_denominator());
-	else return left.get_integer() < right.get_integer();
+	left.to_improper();
+	right.to_improper();
+	return left.get_numerator() * right.get_denominator() < 
+		right.get_numerator() * left.get_denominator();
 }
-bool operator<=(const fraction left,const  fraction right)
-{
-	if (left.get_integer() == right.get_integer())
-		return (left.get_numerator() * right.get_denominator()) <= (right.get_numerator() * left.get_denominator());
-	else return left.get_integer() <= right.get_integer();
-}
+bool operator<=(const fraction& left,const  fraction& right){	return left < right || left == right;}
 bool operator>(const fraction& left, const fraction& right){	return!(left < right);}
 bool operator>=(const fraction& left, const fraction& right){	return!(left <= right);}
 
 
 //#define CONSTRACTORS_CHEK
 //#define HOME_WOR
+ //#define COMPARISSON_OPERATORS_CHECK
+//#define CONVERSIONS_BASICS
+//#define CONVERSION_FROM_OTHER_TO_CLASS
 
 void main()
 {
@@ -253,11 +260,49 @@ void main()
 	cout << endl;
 	cout << (A /= B) << endl;
 	cout << endl;
-#endif // HOME_WOR
-	fraction A(3,4);
+fraction A(3,4);
 	fraction B(1,2, 4); 
 	cout <<  (A > B )<< endl;
-//for (fraction i(3, 4); i < 10;++ i)
-//		cout << i << "\t";
-//	cout << endl;
-}
+for (fraction i(3, 4); i < 10;++ i)
+		cout << i << "\t";
+	cout << endl;
+#endif // HOME_WOR
+#ifdef COMPARISSON_OPERATORS_CHECK
+	/*fraction A(1, 2);
+fraction B(5, 10);
+if (A == B)cout << "Дроби равны.";
+else cout << "Дроби разные.";*/
+	cout << (fraction(1, 2) < fraction(5, 9)) << endl;
+#endif // COMPARISSON_OPERATORS_CHECK
+
+#ifdef CONVERSIONS_BASICS
+	// (type)value C-like notation (C_подобная форма записи)
+// tape(valye) Function notation(Функциональная форма записи)
+//cout << ( double)8 / 5 << endl;
+	int a = 2;    // No conversion
+	double b = 3; // Conversion from less to more.
+	int c = b;    // Conversion from more to less with data loss.
+	int d = 2.5;  // Conversion from more to less with data loss.
+	cout << d << endl;
+#endif // CONVERSIONS_BASICS
+
+#ifdef CONVERSION_FROM_OTHER_TO_CLASS
+	fraction A = fraction(5); // Conversion from int to fraction
+	cout << A << endl;
+	cout << delimetr << endl;
+	fraction B;
+	cout << delimetr << endl;
+	B = fraction(8);
+	cout << B << endl;
+#endif // CONVERSION_FROM_OTHER_TO_CLASS
+	fraction A(2, 3, 4)
+		int a = A;
+	cout << a << endl;
+
+	double b = A;
+	cout << a << endl;
+
+	fraction B = 2.75;
+	cout << B << endl;
+
+} 
