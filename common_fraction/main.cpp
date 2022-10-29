@@ -130,6 +130,14 @@ public:
 			}
 		return *this;
 	}
+	  operator int()const
+	{
+		return get_integer();
+	}
+	  operator double() const
+	  {
+		  return ((double)this->integer) + double(this->numerator) / double(this->denominator);
+	  }
 };
 ostream& operator<<(ostream& os, const fraction& obj)
 {
@@ -223,7 +231,7 @@ bool operator>=(const fraction& left, const fraction& right){	return!(left <= ri
  //#define COMPARISSON_OPERATORS_CHECK
 //#define CONVERSIONS_BASICS
 //#define CONVERSION_FROM_OTHER_TO_CLASS
-
+#define CONVERSION_FROM_CLASS_TO_OTHER_TYPES
 void main()
 {
 	setlocale(LC_ALL, "");
@@ -295,14 +303,18 @@ else cout << "Дроби разные.";*/
 	B = fraction(8);
 	cout << B << endl;
 #endif // CONVERSION_FROM_OTHER_TO_CLASS
-	fraction A(2, 3, 4)
-		int a = A;
+#ifdef CONVERSION_FROM_CLASS_TO_OTHER_TYPES
+	fraction A(2, 3, 4);
+	int a = A;
 	cout << a << endl;
+	cout << A << endl;
 
 	double b = A;
 	cout << a << endl;
 
-	fraction B = 2.75;
-	cout << B << endl;
+	/*fraction B = 2.75;
+	cout << B << endl;*/
+
+#endif // CONVERSION_FROM_CLASS_TO_OTHER_TYPES
 
 } 
