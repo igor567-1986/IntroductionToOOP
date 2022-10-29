@@ -43,6 +43,15 @@ public:
 		this->denominator = 1;
 		cout << "1ArgConstructor:\t" << this << endl;
 	}
+	 fraction(double decimal)
+	 {
+		 integer = decimal;// сохраняем целую часть
+		 decimal += 1e-10;
+		 denominator = 1e+9;
+		 numerator = (decimal - integer) * denominator;
+		 reduce();
+		 cout << "DoubleConstractor" << this << endl;
+	 }
 	fraction(int numerator, int denominator)
 	{
 		this->integer = 0;
@@ -130,14 +139,15 @@ public:
 			}
 		return *this;
 	}
-	  operator int()const
+	                   // TYPE CAST OPERATION
+	explicit operator int()const
 	{
-		return get_integer();
+		return integer + numerator / denominator;
 	}
-	  operator double() const
-	  {
-		  return ((double)this->integer) + double(this->numerator) / double(this->denominator);
-	  }
+	explicit operator double() const
+	{
+		return integer + double(numerator) / denominator;
+	}
 };
 ostream& operator<<(ostream& os, const fraction& obj)
 {
@@ -305,15 +315,17 @@ else cout << "Дроби разные.";*/
 #endif // CONVERSION_FROM_OTHER_TO_CLASS
 #ifdef CONVERSION_FROM_CLASS_TO_OTHER_TYPES
 	fraction A(2, 3, 4);
-	int a = A;
+	int a =(int) A;
 	cout << a << endl;
 	cout << A << endl;
 
-	double b = A;
-	cout << a << endl;
+	double b = (double)A;
+	cout << b << endl;
 
-	/*fraction B = 2.75;
-	cout << B << endl;*/
+	fraction B = 2.8;
+	cout << B << endl;
+
+	//cout << 0.1 + 0.3 << endl;
 
 #endif // CONVERSION_FROM_CLASS_TO_OTHER_TYPES
 
