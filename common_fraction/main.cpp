@@ -11,6 +11,7 @@ fraction operator*(fraction left, fraction right);
 fraction operator/(const fraction left, const  fraction right);
 fraction operator+(fraction left, fraction right);
 fraction operator-(fraction left, fraction right);
+fraction& reduce();
 
 class fraction
 {
@@ -64,6 +65,7 @@ public:
 		set_integer ( integer);
 		set_numerator ( numerator);
 		set_denominator ( denominator);
+		reduce();
 		cout << "Constructor:\t" << this << endl;
 	}
 	fraction(const fraction& other)
@@ -105,6 +107,7 @@ public:
 	fraction& operator/=(const fraction& other) {return *this=*this/other;}
 	fraction& operator+=(const fraction& other) {return *this=*this+other;}
 	fraction& operator-=(const fraction& other) {return *this=*this-other;}
+	friend istream& operator>>(istream& in, fraction& obj);
 		               // Metodg:
 	fraction& to_improper()
 	{
@@ -160,6 +163,19 @@ ostream& operator<<(ostream& os, const fraction& obj)
 	}
 	else if (obj.get_integer() == 0)os << 0;
 	return os;
+}
+istream& operator>>(istream& in ,fraction & obj)
+{
+	in >> obj.integer;
+	in >> obj.numerator;
+	in >> obj.denominator;
+	if (obj.denominator == 0)
+	{
+		obj.integer += obj.numerator;
+		obj.numerator = 0;
+	}
+	return in;
+	
 }
 
 fraction operator*( fraction left, fraction right)
@@ -241,7 +257,8 @@ bool operator>=(const fraction& left, const fraction& right){	return!(left <= ri
  //#define COMPARISSON_OPERATORS_CHECK
 //#define CONVERSIONS_BASICS
 //#define CONVERSION_FROM_OTHER_TO_CLASS
-#define CONVERSION_FROM_CLASS_TO_OTHER_TYPES
+//#define CONVERSION_FROM_CLASS_TO_OTHER_TYPES
+#define HOME_WORK
 void main()
 {
 	setlocale(LC_ALL, "");
@@ -314,7 +331,7 @@ else cout << "Дроби разные.";*/
 	cout << B << endl;
 #endif // CONVERSION_FROM_OTHER_TO_CLASS
 #ifdef CONVERSION_FROM_CLASS_TO_OTHER_TYPES
-	fraction A(2, 3, 4);
+	fraction A(2, 3, 0);
 	int a =(int) A;
 	cout << a << endl;
 	cout << A << endl;
@@ -328,5 +345,11 @@ else cout << "Дроби разные.";*/
 	//cout << 0.1 + 0.3 << endl;
 
 #endif // CONVERSION_FROM_CLASS_TO_OTHER_TYPES
+#ifdef HOME_WORK
+	fraction A;
+	cout << "Введите простую дробь: "; cin >> A;
+	cout << A << endl;
+#endif // HOME_WORK
 
-} 
+ 
+}

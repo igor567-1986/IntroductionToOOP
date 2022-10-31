@@ -1,5 +1,8 @@
 #include<iostream>
 using namespace std;
+using std::cout;
+using std::cin;
+using std::endl;
 
 class String
 {
@@ -9,6 +12,10 @@ public:
 	const char* get_str()const
 	{ 
 		return str;
+	}
+	const size_t get_size()
+	{
+		return size;
 	}
 
 	          // Constraction
@@ -50,6 +57,8 @@ public:
 		cout << "CopyAssignment:\t" << this << endl;
 		return *this;
 	}
+	
+    
 		// Methods:
 	void print()const
 	{
@@ -59,9 +68,15 @@ public:
 	
 };
 ostream&  operator <<(ostream& os, const String& obj)
-	{
+{
 		return os << obj.get_str();
-	}
+}
+String operator+(const string  right)
+{
+	
+}
+	
+    
 
 //#define CONSTRUCTORS_CHECK
 #define OPERATORS_PLUS_CHECK
