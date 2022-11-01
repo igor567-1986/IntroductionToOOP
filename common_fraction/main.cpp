@@ -1,4 +1,5 @@
-﻿#include<iostream>
+﻿#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
 using namespace std;
 using std::cout;
 using std::cin;
@@ -164,21 +165,51 @@ ostream& operator<<(ostream& os, const fraction& obj)
 	else if (obj.get_integer() == 0)os << 0;
 	return os;
 }
-istream& operator>>(istream& in ,fraction & obj)
+//istream& operator>>(istream& in ,fraction & obj)
+//{
+//	cout << "Введите целую часть:" << endl;
+//	in >> obj.integer;
+//	cout << "Введите числитель часть:" << endl;
+//	in >> obj.numerator;
+//	cout << "Введите знаменатель часть:" << endl;
+//	in >> obj.denominator;
+//	if (obj.denominator == 0)
+//	{
+//		obj.integer += obj.numerator;
+//		obj.numerator = 0;
+//	}
+//	return in;
+//	
+//}
+istream& operator>> (istream& is, fraction& obj)
 {
-	cout << "Введите целую часть:" << endl;
-	in >> obj.integer;
-	cout << "Введите числитель часть:" << endl;
-	in >> obj.numerator;
-	cout << "Введите знаменатель часть:" << endl;
-	in >> obj.denominator;
-	if (obj.denominator == 0)
+	const int SIZE = 256;
+	char buffer[SIZE]{};
+	is.getline(buffer, SIZE);
+	char delimetrs[] = "()/ ";
+	int number[3] = {}; //Здесь будут хранится числа извлеченные из строки.
+
+	int n = 0;
+	for (char* pch = strtok(buffer, delimetrs); pch; pch = strtok(NULL, delimetrs))
 	{
-		obj.integer += obj.numerator;
-		obj.numerator = 0;
+		number[n++] = atoi(pch);
+		//atoi(char* str) ASCII string to integer
 	}
-	return in;
-	
+	//for (int i = 0; i < n; i++)cout << number[i] << "\t";	cout << endl;
+	obj = fraction();
+	switch (n)
+	{
+	case 1: obj.set_integer(number[0]); break;
+	case 2:
+		obj.set_numerator(number[0]);
+		obj.set_denominator(number[1]);
+		break;
+	case 3:
+		obj.set_integer(number[0]);
+		obj.set_numerator(number[1]);
+		obj.set_denominator(number[2]);
+	}
+	return is;
 }
 
 fraction operator*( fraction left, fraction right)

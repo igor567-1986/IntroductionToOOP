@@ -16,8 +16,12 @@ public:
 	{
 		return str;
 	}
+	 char* get_str()
+	{
+		return str;
+	}
    
-	int get_size() const
+	size_t get_size() const
 	{
 		return size;
 	}
@@ -44,6 +48,16 @@ public:
 			this->str[i] = other.str[i];
 		cout << "CopyConstructor:" << this << endl;
 	}
+	String(String&& other)
+	{
+		//Shallow copy:
+		this->size = other.size;
+		this->str = other.str;
+		other.size = 0;
+		other.str = nullptr;
+		cout << "MoveConstructor:" << this << endl;
+	}
+
 	~String()
 	{
 		delete[] this->str;
@@ -61,10 +75,13 @@ public:
 		cout << "CopyAssignment:\t" << this << endl;
 		return *this;
 	}
-	String& operator[](char* str)
+	char& operator[](int i)const
 	{
-		 get_str();
-		 return *this;
+		return str[i];
+	}
+	char& operator[](int i)
+	{
+		return str[i];
 	}
 		   
 		// Methods:
@@ -81,13 +98,12 @@ ostream&  operator <<(ostream& os, const String& obj)
 }
 String operator+ (const String& left, const String& right)
 {
-	int size = strlen(left.get_str()) + strlen(right.get_str());
-	char* buffer = new char[size + 1];
-	for (int i = 0; i < size; i++)
-	{
-		buffer[i] = left.get_size()[i];
-	}
-	return buffer;
+	String cat(left.get_size() + right.get_size() - 1);
+	for (int i = 0; i < left.get_size(); i++)
+		cat[i] = left[i];
+	for (int i = 0; i < right.get_size(); i++)
+		cat[i + left.get_size() - 1] = right[i];
+	return cat;
 }
 	
     
@@ -118,7 +134,7 @@ void main()
 #ifdef OPERATORS_PLUS_CHECK
 	String str1 = "Hello";
 	String str2 = "World";
-	String str3 = str1 + str2;
+	String str3 = str1 + " " + str2;
 	cout << str3 << endl;
 #endif // OPERATORS_PLUS_CHECK
 
