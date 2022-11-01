@@ -166,8 +166,11 @@ ostream& operator<<(ostream& os, const fraction& obj)
 }
 istream& operator>>(istream& in ,fraction & obj)
 {
+	cout << "¬ведите целую часть:" << endl;
 	in >> obj.integer;
+	cout << "¬ведите числитель часть:" << endl;
 	in >> obj.numerator;
+	cout << "¬ведите знаменатель часть:" << endl;
 	in >> obj.denominator;
 	if (obj.denominator == 0)
 	{

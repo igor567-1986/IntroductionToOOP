@@ -4,30 +4,34 @@ using std::cout;
 using std::cin;
 using std::endl;
 
+#define tab "\t"
+#define delimetr "\n----------------------------------------\n"
+
 class String
 {
 	size_t size;  //Размер строки в байтах
 	char* str;    //указатель на строку в динамической памяти
 public:
 	const char* get_str()const
-	{ 
+	{
 		return str;
 	}
-	const size_t get_size()
+   
+	const size_t get_size() const
 	{
 		return size;
 	}
 
-	          // Constraction
-	explicit String(size_t size=80)
+	// Constraction
+	explicit String(size_t size = 80)
 	{
-		this->size =size;
+		this->size = size;
 		this->str = new char[size] {};
 		cout << "DefConstructor:\t" << this << endl;
 	}
 	String(const char str[])
 	{
-		this->size = strlen(str)+1;
+		this->size = strlen(str) + 1;
 		this->str = new char[size] {};
 		for (int i = 0; i < size; i++)this->str[i] = str[i];
 		cout << "Constructor:\t" << endl;
@@ -35,7 +39,7 @@ public:
 	String(const String& other)
 	{
 		this->size = other.size;
-		this->str = new char[size]{};
+		this->str = new char[size] {};
 		for (int i = 0; i < size; i++)
 			this->str[i] = other.str[i];
 		cout << "CopyConstructor:" << this << endl;
@@ -45,7 +49,7 @@ public:
 		delete[] this->str;
 		cout << "destructor" << endl;
 	}
-	    // Operators
+	// Operators
 	String& operator=(const String& other)
 	{
 		if (this == &other)return *this;
@@ -57,8 +61,12 @@ public:
 		cout << "CopyAssignment:\t" << this << endl;
 		return *this;
 	}
-	
-    
+	String& operator[](char* str)
+	{
+		 get_str();
+		 return *this;
+	}
+		   
 		// Methods:
 	void print()const
 	{
@@ -71,9 +79,15 @@ ostream&  operator <<(ostream& os, const String& obj)
 {
 		return os << obj.get_str();
 }
-String operator+(const string  right)
+String operator+ (const String& left, const String& right)
 {
-	
+	int size = strlen(left.get_str()) + strlen(right.get_str());
+	char* buffer = new char[size + 1];
+	for (int i = 0; i < size; i++)
+	{
+		buffer[i] = left[i];
+	}
+	return buffer;
 }
 	
     
