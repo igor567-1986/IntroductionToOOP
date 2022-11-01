@@ -1,4 +1,4 @@
-#include<iostream>
+п»ї#include<iostream>
 using namespace std;
 using std::cout;
 using std::cin;
@@ -9,15 +9,15 @@ using std::endl;
 
 class String
 {
-	size_t size;  //Размер строки в байтах
-	char* str;    //указатель на строку в динамической памяти
+	size_t size;  //Р Р°Р·РјРµСЂ СЃС‚СЂРѕРєРё РІ Р±Р°Р№С‚Р°С…
+	char* str;    //СѓРєР°Р·Р°С‚РµР»СЊ РЅР° СЃС‚СЂРѕРєСѓ РІ РґРёРЅР°РјРёС‡РµСЃРєРѕР№ РїР°РјСЏС‚Рё
 public:
 	const char* get_str()const
 	{
 		return str;
 	}
    
-	const size_t get_size() const
+	int get_size() const
 	{
 		return size;
 	}
@@ -85,7 +85,7 @@ String operator+ (const String& left, const String& right)
 	char* buffer = new char[size + 1];
 	for (int i = 0; i < size; i++)
 	{
-		buffer[i] = left[i];
+		buffer[i] = left.get_size()[i];
 	}
 	return buffer;
 }
@@ -98,7 +98,7 @@ void main()
 {
 	setlocale(LC_ALL, "");
 #ifdef CONSTRUCTORS_CHECK
-	String str1;  // Пустая строка размером 80 байт
+	String str1;  // РџСѓСЃС‚Р°СЏ СЃС‚СЂРѕРєР° СЂР°Р·РјРµСЂРѕРј 80 Р±Р°Р№С‚
 	str1.print();
 	cout << str1 << endl;
 
