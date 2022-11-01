@@ -1,4 +1,4 @@
-#include<iostream>
+п»ї#include<iostream>
 using namespace std;
 using std::cout;
 using std::cin;
@@ -6,7 +6,7 @@ using std::endl;
 
 #define tab "\t"
 #define delimetr "\n----------------------------------\n"
-class fraction;//Обьявление класса
+class fraction;//РћР±СЊСЏРІР»РµРЅРёРµ РєР»Р°СЃСЃР°
 fraction operator*(fraction left, fraction right);
 fraction operator/(const fraction left, const  fraction right);
 fraction operator+(fraction left, fraction right);
@@ -46,7 +46,7 @@ public:
 	}
 	 fraction(double decimal)
 	 {
-		 integer = decimal;// сохраняем целую часть
+		 integer = decimal;// СЃРѕС…СЂР°РЅСЏРµРј С†РµР»СѓСЋ С‡Р°СЃС‚СЊ
 		 decimal += 1e-10;
 		 denominator = 1e+9;
 		 numerator = (decimal - integer) * denominator;
@@ -166,11 +166,11 @@ ostream& operator<<(ostream& os, const fraction& obj)
 }
 istream& operator>>(istream& in ,fraction & obj)
 {
-	cout << "Введите целую часть:" << endl;
+	cout << "Р’РІРµРґРёС‚Рµ С†РµР»СѓСЋ С‡Р°СЃС‚СЊ:" << endl;
 	in >> obj.integer;
-	cout << "Введите числитель часть:" << endl;
+	cout << "Р’РІРµРґРёС‚Рµ С‡РёСЃР»РёС‚РµР»СЊ С‡Р°СЃС‚СЊ:" << endl;
 	in >> obj.numerator;
-	cout << "Введите знаменатель часть:" << endl;
+	cout << "Р’РІРµРґРёС‚Рµ Р·РЅР°РјРµРЅР°С‚РµР»СЊ С‡Р°СЃС‚СЊ:" << endl;
 	in >> obj.denominator;
 	if (obj.denominator == 0)
 	{
@@ -308,14 +308,14 @@ for (fraction i(3, 4); i < 10;++ i)
 #ifdef COMPARISSON_OPERATORS_CHECK
 	/*fraction A(1, 2);
 fraction B(5, 10);
-if (A == B)cout << "Дроби равны.";
-else cout << "Дроби разные.";*/
+if (A == B)cout << "Р”СЂРѕР±Рё СЂР°РІРЅС‹.";
+else cout << "Р”СЂРѕР±Рё СЂР°Р·РЅС‹Рµ.";*/
 	cout << (fraction(1, 2) < fraction(5, 9)) << endl;
 #endif // COMPARISSON_OPERATORS_CHECK
 
 #ifdef CONVERSIONS_BASICS
-	// (type)value C-like notation (C_подобная форма записи)
-// tape(valye) Function notation(Функциональная форма записи)
+	// (type)value C-like notation (C_РїРѕРґРѕР±РЅР°СЏ С„РѕСЂРјР° Р·Р°РїРёСЃРё)
+// tape(valye) Function notation(Р¤СѓРЅРєС†РёРѕРЅР°Р»СЊРЅР°СЏ С„РѕСЂРјР° Р·Р°РїРёСЃРё)
 //cout << ( double)8 / 5 << endl;
 	int a = 2;    // No conversion
 	double b = 3; // Conversion from less to more.
@@ -350,7 +350,7 @@ else cout << "Дроби разные.";*/
 #endif // CONVERSION_FROM_CLASS_TO_OTHER_TYPES
 #ifdef HOME_WORK
 	fraction A;
-	cout << "Введите простую дробь: "; cin >> A;
+	cout << "Р’РІРµРґРёС‚Рµ РїСЂРѕСЃС‚СѓСЋ РґСЂРѕР±СЊ: "; cin >> A;
 	cout << A << endl;
 #endif // HOME_WORK
 
