@@ -38,10 +38,11 @@ public:
 		this->size = strlen(str) + 1;
 		this->str = new char[size] {};
 		for (int i = 0; i < size; i++)this->str[i] = str[i];
-		cout << "Constructor:\t" << endl;
+		cout << "Constructor:\t" << this << endl;
 	}
 	String(const String& other)
 	{
+		//Deep copy
 		this->size = other.size;
 		this->str = new char[size] {};
 		for (int i = 0; i < size; i++)
@@ -61,7 +62,7 @@ public:
 	~String()
 	{
 		delete[] this->str;
-		cout << "destructor" << endl;
+		cout << "destructor" << this << endl;
 	}
 	// Operators
 	String& operator=(const String& other)
@@ -73,6 +74,17 @@ public:
 		for (int i = 0; i < size; i++)
 			this->str[i] = other.str[i];
 		cout << "CopyAssignment:\t" << this << endl;
+		return *this;
+	}
+	String& operator=(String&& other)
+	{
+		this->size = other.size;
+		this->str = other.str;
+		for (int i = 0; i < size; i++)
+			this->str[i] = other.str[i];
+		other.size = 0;
+		other.str = nullptr;
+		cout << "MoveAssignment:\t" << this << endl;
 		return *this;
 	}
 	char& operator[](int i)const
@@ -135,6 +147,8 @@ void main()
 	String str1 = "Hello";
 	String str2 = "World";
 	String str3 = str1 + " " + str2;
+	cout << str3 << endl;
+	str3 = str2;
 	cout << str3 << endl;
 #endif // OPERATORS_PLUS_CHECK
 
