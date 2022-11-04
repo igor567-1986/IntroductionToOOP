@@ -6,7 +6,8 @@ using std::endl;
 
 #define tab "\t"
 #define delimetr "\n----------------------------------------\n"
-
+class String;
+String operator+ (const String& left, const String& right);
 class String
 {
 	size_t size;  //Размер строки в байтах
@@ -79,6 +80,7 @@ public:
 	String& operator=(String&& other)
 	{
 		if (this == &other)return *this;
+		delete[]this->str;
 		this->size = other.size;
 		this->str = other.str;
 		other.size = 0;
@@ -86,6 +88,7 @@ public:
 		cout << "MoveAssignment:\t" << this << endl;
 		return *this;
 	}
+	String& operator+=(const String& other)	{ 	return  *this = *this + other;	}
 	char& operator[](int i)const
 	{
 		return str[i];
@@ -116,6 +119,7 @@ String operator+ (const String& left, const String& right)
 		cat[i + left.get_size() - 1] = right[i];
 	return cat;
 }
+
 	
     
 
@@ -145,10 +149,13 @@ void main()
 #ifdef OPERATORS_PLUS_CHECK
 	String str1 = "Hello";
 	String str2 = "World";
-	String str3 = str1 + " " + str2;
+	/*String str3;
+	str3 = str1 + " " + str2;
 	cout << str3 << endl;
 	str3 = str2;
-	cout << str3 << endl;
+	cout << str3 << endl;*/
+	str1 += str2;
+	cout << str1 << endl;
 #endif // OPERATORS_PLUS_CHECK
 
 }
